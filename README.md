@@ -1,7 +1,7 @@
 # IMD_working_files
 File currently working on ...
-Dag needs to be formated according to the requirements
-Data processing and data manipulation python files need to be created separately
-ML algorimth needs to be in completely diferent python file
-Debugging entire program through docker
-Final changes to be done
+1.Dag needs to be formated according to the requirements
+2.Data processing and data manipulation python files need to be created separately
+3.ML algorimth needs to be in completely diferent python file
+4.Debugging entire program through docker
+5.Final changes to be done
