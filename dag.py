@@ -70,7 +70,7 @@ rd= python_operator(
     on_failure_callback=unfail_task,
 )
 
-dproc= python_operator(
+dp= python_operator(
     task_id='dproc',
     python_callable = data_processing,
     dag=dag,
@@ -88,4 +88,4 @@ mL= python_operator(
     on_failure_callback=unfail_task,
 )
 
-op >> rd >> dproc >> mL
+op >> rd >> dp >> mL
