@@ -10,9 +10,6 @@ from airflow.operators.dummy_operator import DummyOperator
 import pandas as pd
 import os
 
-#for data importing
-
-
 #actual DAG codes
 
 #to check its daily working
@@ -25,7 +22,6 @@ def read() :
     with con:
         df = pd.read_sql('SELECT * FROM Data', con, parse_dates="DateTime", coerce_float=True, index_col="DateTime")
     df
-
 
 #to create ML algo
 from ML import eval_and_save as evsa 
