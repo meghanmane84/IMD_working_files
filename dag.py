@@ -18,10 +18,39 @@ def trigger_alert():
 
 #to read the data
 def read() :
-    con = sqlite3.connect('Station_43057.db')
-    with con:
-        df = pd.read_sql('SELECT * FROM Data', con, parse_dates="DateTime", coerce_float=True, index_col="DateTime")
-    df
+    import json
+    import requests
+    import pandas as pd
+    from datetime import datetime
+    from airflow.decorators import dag, task
+
+    @dag(
+        dag_id='imd-dag',
+        description='DAG for Farmers Wallet',
+        schedule_interval='@daily',
+        start_date=datetime(2021,9,5),
+        tags=['Pipe'],
+        catchup=False,
+    )
+    def pipeline():
+
+        @task()
+        def get_data():
+            # Getting 20 years worth of data points
+            data = requests.get('http://ec2-65-2-37-66.ap-south-1.compute.amazonaws.com/data/current?points=175392')
+            return data.json()
+
+        @task()
+        def process(data):
+            df = pd.DataFrame(data)
+            print(df.tail)
+
+        # Main Flow
+        data = get_data()
+        process(data)
+
+    # DAG Instantiation
+    pipeline = pipeline()
 
 #to create ML algo
 from ML import eval_and_save as evsa 
